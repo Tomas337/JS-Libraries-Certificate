@@ -1,0 +1,96 @@
+import React from 'https://esm.sh/react@18.2.0'
+import ReactDOM from 'https://esm.sh/react-dom@18.2.0'
+import ReactMarkdown from "https://cdn.skypack.dev/react-markdown@8.0.6";
+import remarkGfm from "https://cdn.skypack.dev/remark-gfm@3.0.1";
+
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {markdownText: `# H1
+
+## H2
+### H3
+
+code: \`console.log("hello world")\`.
+
+\`\`\`
+// more code:
+
+function hello() {
+    return "Hello";
+}
+\`\`\`
+
+**bold text**  
+_italic text_  
+**_both_**  
+~~strikethrough~~.
+
+A [link](https://www.google.com)
+> Block Quotes!
+
+A table:
+
+Header1 | Header2 | Header3
+-------------- | -------------- | --------------
+Lorem | ipsum | dolor
+sit | amet,| consectetuer...
+
+- lists
+  - Different.
+     - List
+        - Styles
+
+
+1. numbered.
+1. list
+1. here
+
+![cat](https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg)
+`, previewBtn: false, editorBtn: false};
+  }
+  
+  updateText(value){
+    this.setState({markdownText: value});
+  }
+  
+  hidePreview(){
+    this.setState({editorBtn: !this.state.editorBtn})
+    console.log(this.state.editorBtn);
+  }
+  
+  hideEditor(){
+    this.setState({previewBtn: !this.state.previewBtn})
+    console.log(this.state.previewBtn);
+  }
+  
+  render(){
+    return(
+      <div>
+        <div id="editor-div" className={this.state.previewBtn ? "window hidden-editor" : this.state.editorBtn ? "window expanded-editor": "window"}>
+          <div id="editor-heading" class="heading">Editor
+            <button onClick={this.hidePreview.bind(this)}>
+              <a>⤢</a>
+            </button></div>
+          <textarea id="editor" onChange={e => this.updateText(e.target.value)}>
+            {this.state.markdownText}
+          </textarea>
+        </div>
+        <div  id="previewer-div" className={this.state.editorBtn ? "window hidden-preview" : this.state.previewBtn ? "window expanded-preview": "window"}>
+          <div id="previewer-heading" class="heading">Previewer
+            <button onClick={this.hideEditor.bind(this)}>
+              <a>⤢</a>
+            </button></div>
+          <div id="preview">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {this.state.markdownText}
+            </ReactMarkdown>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App/>, document.getElementById("wrapper"));

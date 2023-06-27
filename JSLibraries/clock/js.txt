@@ -1,0 +1,120 @@
+import $ from "https://cdn.skypack.dev/jquery@3.6.4";
+
+$(document).ready(function(){
+  let sessionLength = $("#session-length").html();
+  let breakLength = $("#break-length").html(); 
+  
+  function setSessionLength(){
+    if(sessionLength < 10) {
+      $("#time-left").html(["0", sessionLength, ":00"].join(""))
+    }else {
+      $("#time-left").html([sessionLength, ":00"].join(""))
+    }  
+  }
+  function setBreakLength(){
+    if(breakLength < 10) {
+      $("#time-left").html(["0", breakLength, ":00"].join(""))
+    }else {
+      $("#time-left").html([breakLength, ":00"].join(""))
+    }
+  }
+  
+  setSessionLength();
+  $("#session-length").on('DOMSubtreeModified', function(){
+    sessionLength = $("#session-length").html();
+    setSessionLength();   
+  });
+  $("#break-length").on('DOMSubtreeModified', () => breakLength = $("#break-length").html());
+   
+  let isIntervalSet = false;  
+  let timer = null;
+  let isSession = true;
+  const audio = document.getElementById("beep"); 
+  function playNoise(timer_label, settingFunction){
+    $("#timer-label").html(timer_label);
+    audio.currentTime = 0;
+    audio.play();    
+    settingFunction();
+    isSession = !isSession
+  }
+  
+  $("#start_stop").click(function(){
+    $("#start_stop_icon").toggleClass("fa-play").toggleClass("fa-pause");
+    
+    if(isIntervalSet == false)
+    {
+      timer = setInterval(function(){
+          let minutesStr = $("#time-left").html().slice(0, 2);
+          let secondsStr = $("#time-left").html().slice(3);
+
+          let minutesArr = [...minutesStr].filter((numberStr, index) => {
+            if(index == 0 && numberStr == "0") return;
+            return numberStr;
+          });
+          let secondsArr = [...secondsStr].filter((numberStr, index) => {
+            if(index == 0 && numberStr == "0") return;
+            return numberStr;
+          });
+
+          let minutes = Number(minutesArr.join(""));
+          let seconds = Number(secondsArr.join(""));
+
+          if(minutes == 0 && seconds == 0){
+            if(isSession){
+              playNoise("Break", setBreakLength);
+            }else {
+              playNoise("Session", setSessionLength);
+            }
+            return;
+          }
+
+          if(seconds == 0){
+            minutes = minutes - 1;
+            seconds = 59;
+          }
+          else seconds = seconds - 1;
+
+          if(minutes < 10) minutes = ["0", minutes].join("");    
+          if(seconds < 10) seconds = ["0", seconds].join("");
+          
+          $("#time-left").html([minutes, ":", seconds].join(""));
+      }, 1000);
+      
+      isIntervalSet = true;
+    }
+    else
+    {
+      clearInterval(timer);
+      isIntervalSet = false;
+    }
+  });
+  
+  $("#reset").click(() => {
+    clearInterval(timer);
+    isIntervalSet = false;
+    isSession = true;
+    audio.pause();
+    audio.currentTime = 0;
+    $("#session-length").html("25");
+    $("#break-length").html("5");
+    $("#timer-label").html("Session");
+    $("#start_stop_icon").toggleClass("fa-play", true).toggleClass("fa-pause", false);
+  });
+  
+  $("#break-decrement").click(function(){
+    let value = parseInt($("#break-length").html());
+    if(value > 1) $("#break-length").html(value - 1);
+  });
+  $("#break-increment").click(function(){
+    let value = parseInt($("#break-length").html());
+    if(value < 60) $("#break-length").html(value + 1);
+  });
+  $("#session-decrement").click(function(){
+    let value = parseInt($("#session-length").html());
+    if(value > 1) $("#session-length").html(value - 1);
+  });
+  $("#session-increment").click(function(){
+    let value = parseInt($("#session-length").html());
+    if(value < 60) $("#session-length").html(value + 1);
+  });
+});

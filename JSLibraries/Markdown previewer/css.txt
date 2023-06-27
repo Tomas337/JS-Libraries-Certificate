@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+html {
+  color: #FEFCFD;
+  font-family: "Source Code Pro", sans-serif;
+}
+
+body {
+  background-color: #BFCDE0;
+}
+
+textarea {
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 200px;
+  width: 100%;
+  padding: 0;
+  vertical-align: top;
+}
+
+.window {
+  border: solid black;
+  background-color: #3B3355;
+  margin: auto;
+  min-height: 200px;
+}
+
+#editor-div {
+  max-width: 600px;
+  margin-bottom: 10px;
+}
+
+#previewer-div {
+  max-width: 800px;
+}
+
+.heading {
+  border-bottom: solid black;
+  background-color: #5D5D81;
+  padding: 0 5px 0 5px;
+}
+
+#preview {
+   padding: 15px;
+}
+
+pre, code {
+  background-color: #5D5D81;
+}
+
+pre code {
+  padding: 0px;
+}
+
+pre {
+  padding: 8px;
+}
+
+code {
+  padding: 8px;
+}
+
+a {
+  color: #BFCDE0;
+}
+
+a:hover {
+  color: #FEFCFD;
+}
+
+img {
+  max-width: 100%;
+}
+
+blockquote {
+  border-left:8px solid #BFCDE0;
+  padding-left: 5px;
+}
+
+table, th, td {
+  border: 2px solid #BFCDE0;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+.hidden-editor {
+  display: none;
+}
+
+.hidden-preview {
+  display: none;
+}
+
+.expanded-preview {
+  height: 100%;
+}
+
+.expanded-editor {
+  height: 100%;
+}
+
+.expanded-editor textarea{
+  min-height: 100vh;
+}
+
+button {
+  font-size: 20px;
+  border: 0;
+  background-color: transparent;
+  color: #FEFCFD;
+}

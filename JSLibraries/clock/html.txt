@@ -1,0 +1,46 @@
+<body>
+  <div id="wrapper"  class="h-100 d-flex align-items-center justify-content-center">    
+    <div id="clock" class="border border-4 border-dark bg-light py-5">
+      <h1 class="text-center">25 + 5 clock</h1>
+      <div class="d-flex justify-content-center">
+        <div id="break" class="w-40 mx-5">
+          <div id="break-label" class="text-center h5">Break Length</div>
+          <div class="d-flex justify-content-center">
+            <button id="break-decrement" class="bg-white">
+              <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            <div id="break-length" class="mx-2">5</div>
+            <button id="break-increment" class="bg-white">
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          </div>
+        </div>
+        <div id="session" class="w-40 mx-5">
+          <div id="session-label" class="text-center h5">Session Length</div>
+          <div class="d-flex justify-content-center">
+            <button id="session-decrement" class="bg-white">
+              <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            <div id="session-length" class="mx-2">25</div>
+            <button id="session-increment" class="bg-white">
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <audio id="beep" src="https://docs.google.com/uc?export=download&id=13RlqQcinIaF3BzD51paQO71rPn1KNHnE"></audio>
+        <div id="timer-label" class="text-center h5">Session</div>
+        <div id="time-left" class="text-center h1"></div>
+      </div>
+      <div id="btns" class="d-flex justify-content-center">
+        <button id="start_stop" class="px-2 m-1 bg-white">
+          <i id="start_stop_icon" class="fa-solid fa-play"></i>
+        </button>
+        <button id="reset" class="px-2 m-1 bg-white">
+          <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+      </div>
+    <div>
+  </div>
+</body>

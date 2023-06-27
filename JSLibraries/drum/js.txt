@@ -1,0 +1,70 @@
+import $ from "https://cdn.skypack.dev/jquery@3.6.4";
+
+$(document).ready(function(){
+  function playAudio(key){
+    const audio = document.getElementById(key);
+    audio.currentTime = 0;
+    audio.play();
+    switch(key){
+      case "Q":
+        $("#display").html("Heater 1");
+        break;
+      case "W":
+        $("#display").html("Heater 2");
+        break;       
+      case "E":
+        $("#display").html("Heater 3");
+        break; 
+      case "A":
+        $("#display").html("Heater 4");
+        break; 
+      case "S":
+        $("#display").html("Clap");
+        break; 
+      case "D":
+        $("#display").html("Open HH");
+        break; 
+      case "Z":
+        $("#display").html("Kick'n'hat");
+        break; 
+      case "X":
+        $("#display").html("Kick");
+        break; 
+      case "C":
+        $("#display").html("Closed HH");
+        break; 
+    }   
+  }
+  
+  document.addEventListener("keydown", (event) => {
+    const key = event.key.toUpperCase();
+    switch(key){
+      case "Q":
+      case "W":
+      case "E":
+      case "A":
+      case "S":
+      case "D":
+      case "Z":
+      case "X":
+      case "C":
+        playAudio(key);
+    }    
+  })
+  
+  $("button").click(function(){
+    const key = $(this).html().slice(0, 1);
+    switch(key){
+      case "Q":
+      case "W":
+      case "E":
+      case "A":
+      case "S":
+      case "D":
+      case "Z":
+      case "X":
+      case "C":
+        playAudio(key);
+    }   
+  })
+});
